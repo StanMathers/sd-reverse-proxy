@@ -1,4 +1,5 @@
 from pydantic import ValidationError
+from fastapi import Request
 from providers.base import SportsProvider
 from schemas.request import (
     GetLeagueMatchesPayloadSchema,
@@ -12,9 +13,10 @@ class DecisionMapper:
     def __init__(self, provider: SportsProvider):
         self.provider = provider
 
-    async def execute(self, op: str, payload: dict):
+    async def execute(self, request: Request, op: str, payload: dict):
         op = (op or "").strip()
         try:
+            self.provider.request = request
             if op == "ListLeagues":
                 return await self.provider.list_leagues()
 

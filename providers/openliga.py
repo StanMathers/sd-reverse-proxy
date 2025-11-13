@@ -40,6 +40,7 @@ class OpenLigaProvider(SportsProvider):
                     "provider_call",
                     extra={
                         "extra_data": {
+                            "requestId": self.request.state.request_id,
                             "provider": "OpenLiga",
                             "target": url,
                             "status_code": res.status_code,
@@ -73,6 +74,7 @@ class OpenLigaProvider(SportsProvider):
                         "provider_call_failed",
                         extra={
                             "extra_data": {
+                                "requestId": self.request.state.request_id,
                                 "provider": "OpenLiga",
                                 "target": url,
                                 "attempts": attempts,
@@ -91,6 +93,7 @@ class OpenLigaProvider(SportsProvider):
                     "provider_retry_scheduled",
                     extra={
                         "extra_data": {
+                            "requestId": self.request.state.request_id,
                             "provider": "OpenLiga",
                             "target": url,
                             "attempt": attempts,

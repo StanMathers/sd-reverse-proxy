@@ -16,6 +16,7 @@ async def request_response_logger(request: Request, call_next):
         for k, v in request.headers.items()
     }
 
+
     logger.info(
         f"Incoming request {request.method} {request.url.path}",
         extra={
@@ -24,10 +25,12 @@ async def request_response_logger(request: Request, call_next):
                 "requestId": request_id,
                 "method": request.method,
                 "path": request.url.path,
+                "headers": safe_headers,
                 "body_size": len(body)
             }
         }
     )
+    request.state.request_id = request_id
 
     # Process
     response: Response = await call_next(request)
