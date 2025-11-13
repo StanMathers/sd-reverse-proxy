@@ -29,6 +29,6 @@ class TokenBucket:
                 # need to wait for next token to be available
                 to_wait = (1.0 - self.tokens) / self.refill_rate
                 await asyncio.sleep(to_wait)
-                self.tokens = 0.0
+                self.tokens = 1.0
             # consume tokens
             self.tokens -= 1.0

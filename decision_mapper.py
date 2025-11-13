@@ -1,7 +1,6 @@
 from pydantic import ValidationError
 from providers.base import SportsProvider
 from schemas.request import (
-    ListLeaguesPayloadSchema,
     GetLeagueMatchesPayloadSchema,
     GetTeamPayloadSchema,
     GetMatchPayloadSchema,
@@ -17,7 +16,6 @@ class DecisionMapper:
         op = (op or "").strip()
         try:
             if op == "ListLeagues":
-                data = ListLeaguesPayloadSchema(**payload)
                 return await self.provider.list_leagues()
 
             elif op == "GetLeagueMatches":

@@ -26,7 +26,7 @@ class OpenLigaProvider(SportsProvider):
         await self.bucket.acquire()
 
         attempts = 0
-        last_ecx: Exception | None = None
+        last_exc: Exception | None = None
 
         while True:
             attempts += 1

@@ -1,5 +1,5 @@
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from schemas.request import ExecuteRequestSchema
 from providers.openliga import OpenLigaProvider
 from decision_mapper import DecisionMapper
@@ -17,18 +17,16 @@ MAPPER = DecisionMapper(provider=PROVIDER)
 
 
 @app.post("/proxy/execute")
-async def execute_proxy_request(payload: ExecuteRequestSchema):
+async def execute_proxy_request(request: Request, payload: ExecuteRequestSchema):
     data = await MAPPER.execute(op=payload.operationType, payload=payload.payload)
     logging.info(
         f"Executed operation: {payload.operationType} with payload: {payload.payload}"
     )
-    logging.info(data)
 
     return {
         "status": "success",
         "data": {
             "operationType": payload.operationType,
-            "requestId": payload.requestId,
             "result": data,
         },
     }
